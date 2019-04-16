@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { inject, observer } from 'mobx-react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 import round from 'utils/round'
@@ -16,15 +17,30 @@ AMOUNT_STEP = 0.1
 
 const roundAmount = (value) => round(value, AMOUNT_MIN, AMOUNT_STEP)
 
+@inject('store')
+@observer
 class AddToBasket2 extends React.Component {
   constructor(props) {
     super(props)
+    this.store = this.props.store.basketStore
     this.state = {
       amount: roundAmount(AMOUNT_MIN),
       product: props.navigation.getParam('product', ''),
     }
   }
 
+  /**
+   * @todo Better id generation.
+   */
+  handleSubmit = () => {
+    const { product, amount } = this.state
+    this.store.addItem({
+      id: Math.floor(Math.random() * 10000000),
+      productName: product,
+      amount,
+      amountUnit: 'kg',
+    })
+  }
 
   render() {
     const { navigation } = this.props
@@ -62,6 +78,7 @@ class AddToBasket2 extends React.Component {
         <TextButton
           inverted
           lg
+          onPress={ this.handleSubmit }
           style={ R.palette.mt5 }
           icon={
             <MaterialIcons

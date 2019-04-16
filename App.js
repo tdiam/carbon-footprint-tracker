@@ -1,10 +1,13 @@
 import React from 'react'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import { Provider } from 'mobx-react'
 import { Font, AppLoading } from 'expo'
 
+import RootStore from './src/stores'
 import Hamburger from './src/components/header/Hamburger'
 import Menu from './src/screens/Menu'
 import Home from './src/screens/Home'
+import Basket from './src/screens/Basket'
 import {
   AddToBasket1,
   AddToBasket2,
@@ -42,6 +45,7 @@ const MainStack = createStackNavigator({
 const RootStack = createStackNavigator({
   Main: MainStack,
   Menu,
+  Basket,
 }, {
   mode: 'modal',
   headerMode: 'none',
@@ -65,10 +69,12 @@ class App extends React.Component {
 
   render() {
     const { fontLoaded } = this.state
+    if (!fontLoaded) return <AppLoading />
+
     return (
-      fontLoaded
-        ? <AppContainer />
-        : <AppLoading />
+      <Provider store={ new RootStore() }>
+        <AppContainer />
+      </Provider>
     )
   }
 }
