@@ -28,18 +28,10 @@ const products = [
 class ProductAutocomplete extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      query: props.value,
-      isFocused: false,
-    }
-  }
-
-  onChangeQuery = (query) => {
-    this.setState({ query })
   }
 
   getAutocompleteList() {
-    let query = this.state.query || ''
+    let query = this.props.query || ''
     // Hide autocomplete when query has <= 1 characters length
     if (query.length <= 1) return []
 
@@ -51,31 +43,29 @@ class ProductAutocomplete extends React.Component {
   }
 
   onAutocompletePress = (item) => {
-    console.log('Pressed', item)
     Keyboard.dismiss()
-    this.setState({ query: item })
+    this.props.onChangeQuery(item)
   }
 
   render() {
-    const { style } = this.props
-    const { query } = this.state
+    const { query, style } = this.props
     const autocompletes = this.getAutocompleteList()
 
     return (
       <React.Fragment>
         <ScrollView
-          keyboardShouldPersistTaps='handled'
           contentContainerStyle={[styles.container, style]}>
           <TextInput
             autoFocus
             value={ query }
-            onChangeText={ this.onChangeQuery }
+            onChangeText={ this.props.onChangeQuery }
             placeholder='Select a product...' />
         </ScrollView>
         { autocompletes.length > 0 && (
           <View style={ styles.autocompletesContainer }>
             <View style={ styles.autocompletes }>
               <FlatList
+                keyboardShouldPersistTaps='handled'
                 horizontal={ false }
                 data={ autocompletes }
                 renderItem={({ item }) => (
@@ -97,7 +87,6 @@ class ProductAutocomplete extends React.Component {
 const styles = StyleSheet.create({
   autocompletesContainer: {
     width: '100%',
-    zIndex: 2,
   },
   autocompletes: {
     backgroundColor: R.colors.white,
@@ -107,6 +96,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     marginTop: 6,
+    zIndex: 2,
   },
   autocompleteItem: {
     paddingHorizontal: 16,

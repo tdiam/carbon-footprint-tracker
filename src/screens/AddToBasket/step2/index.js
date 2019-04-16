@@ -19,16 +19,16 @@ const roundAmount = (value) => round(value, AMOUNT_MIN, AMOUNT_STEP)
 class AddToBasketScreen2 extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      amount: roundAmount(AMOUNT_MIN),
+      product: props.navigation.getParam('product', ''),
+    }
   }
 
-  state = {
-    amount: roundAmount(AMOUNT_MIN),
-  }
 
   render() {
     const { navigation } = this.props
-    const { amount } = this.state
-    const product = navigation.getParam('product', '')
+    const { amount, product } = this.state
     const category = navigation.getParam('category', '')
 
     return (
@@ -38,7 +38,8 @@ class AddToBasketScreen2 extends React.Component {
         </Text>
         <ProductAutocomplete
           style={ R.palette.mt2 }
-          value={ product }
+          query={ product }
+          onChangeQuery={ (query) => this.setState({ product: query }) }
           />
         <View style={[styles.amountContainer, R.palette.mt5]}>
           <Text style={ R.palette.bold }>
