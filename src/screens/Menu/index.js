@@ -2,9 +2,9 @@ import React from 'react'
 import {
   StyleSheet,
   View,
+  SafeAreaView,
   Text,
   TouchableOpacity,
-  Dimensions,
   FlatList,
 } from 'react-native'
 import { Constants } from 'expo'
@@ -13,8 +13,6 @@ import R from 'res/R'
 import CloseButton from 'components/CloseButton'
 import BasketButton from 'components/BasketButton'
 
-
-const windowWidth = Dimensions.get('window').width
 
 const menuItems = [
   {
@@ -36,7 +34,7 @@ const menuItems = [
 ]
 
 const Menu = ({ navigation }) => (
-  <View style={ styles.container }>
+  <SafeAreaView style={ styles.container }>
     <View style={ styles.closeButtonContainer }>
       <CloseButton onPress={ () => navigation.goBack() } />
     </View>
@@ -57,7 +55,7 @@ const Menu = ({ navigation }) => (
         onPress={ () => navigation.navigate('AddToBasket') }
         message='+' />
     </View>
-  </View>
+  </SafeAreaView>
 )
 
 const styles = StyleSheet.create({
@@ -73,9 +71,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
     justifyContent: 'center',
-    marginHorizontal: 24,
     height: 40,
-    width: windowWidth - 48,
+    width: '100%',
+    paddingHorizontal: 24,
     zIndex: 3,
   },
   menuContainer: {
