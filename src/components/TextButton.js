@@ -72,7 +72,6 @@ class TextButton extends React.Component {
 const commonStyles = StyleSheet.create({
   textButton: {
     borderRadius: 10,
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
