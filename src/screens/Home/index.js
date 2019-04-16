@@ -4,7 +4,7 @@ import { StyleSheet, Text } from 'react-native'
 import Screen from 'components/Screen'
 
 
-class HomeScreen extends React.Component {
+class Home extends React.Component {
   static navigationOptions = {
     title: 'My Carbon Footprint',
   }
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default HomeScreen
+export default Home

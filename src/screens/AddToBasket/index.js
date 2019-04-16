@@ -1,7 +1,7 @@
-import AddToBasketScreen1 from './step1'
-import AddToBasketScreen2 from './step2'
+import AddToBasket1 from './step1'
+import AddToBasket2 from './step2'
 
 export {
-  AddToBasketScreen1,
-  AddToBasketScreen2,
+  AddToBasket1,
+  AddToBasket2,
 }

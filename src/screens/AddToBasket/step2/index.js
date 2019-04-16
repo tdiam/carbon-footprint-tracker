@@ -16,7 +16,7 @@ AMOUNT_STEP = 0.1
 
 const roundAmount = (value) => round(value, AMOUNT_MIN, AMOUNT_STEP)
 
-class AddToBasketScreen2 extends React.Component {
+class AddToBasket2 extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -113,4 +113,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default AddToBasketScreen2
+export default AddToBasket2

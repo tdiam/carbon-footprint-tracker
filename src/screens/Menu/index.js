@@ -35,7 +35,7 @@ const menuItems = [
   }
 ]
 
-const MenuScreen = ({ navigation }) => (
+const Menu = ({ navigation }) => (
   <View style={ styles.container }>
     <View style={ styles.closeButtonContainer }>
       <CloseButton onPress={ () => navigation.goBack() } />
@@ -99,4 +99,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default MenuScreen
+export default Menu

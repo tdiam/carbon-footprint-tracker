@@ -51,7 +51,7 @@ const searchHistory = [
 const CategoryItem = CategoryItemImage
 
 
-class AddToBasketScreen1 extends React.Component {
+class AddToBasket1 extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -112,4 +112,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default AddToBasketScreen1
+export default AddToBasket1

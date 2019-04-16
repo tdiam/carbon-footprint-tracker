@@ -3,18 +3,18 @@ import { createStackNavigator, createAppContainer } from 'react-navigation'
 import { Font, AppLoading } from 'expo'
 
 import Hamburger from './src/components/header/Hamburger'
-import MenuScreen from './src/screens/Menu'
-import HomeScreen from './src/screens/Home'
+import Menu from './src/screens/Menu'
+import Home from './src/screens/Home'
 import {
-  AddToBasketScreen1,
-  AddToBasketScreen2,
+  AddToBasket1,
+  AddToBasket2,
 } from './src/screens/AddToBasket'
 import R from 'res/R'
 
 
 const AddToBasketStack = createStackNavigator({
-  AddToBasket1: AddToBasketScreen1,
-  AddToBasket2: AddToBasketScreen2,
+  AddToBasket1,
+  AddToBasket2,
 }, {
   headerMode: 'none',
 })
@@ -26,7 +26,7 @@ AddToBasketStack.navigationOptions = {
 
 
 const MainStack = createStackNavigator({
-  Home: HomeScreen,
+  Home,
   AddToBasket: AddToBasketStack,
 }, {
   defaultNavigationOptions: {
@@ -41,7 +41,7 @@ const MainStack = createStackNavigator({
 
 const RootStack = createStackNavigator({
   Main: MainStack,
-  Menu: MenuScreen,
+  Menu,
 }, {
   mode: 'modal',
   headerMode: 'none',
