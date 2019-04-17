@@ -10,7 +10,7 @@ import {
 import { Constants } from 'expo'
 
 import R from 'res/R'
-import CloseButton from 'components/CloseButton'
+import IconButton from 'components/IconButton'
 import BasketButton from 'components/BasketButton'
 
 
@@ -36,7 +36,11 @@ const menuItems = [
 const Menu = ({ navigation }) => (
   <SafeAreaView style={ styles.container }>
     <View style={ styles.closeButtonContainer }>
-      <CloseButton onPress={ () => navigation.goBack() } />
+      <IconButton
+        name='close'
+        size={ 40 }
+        color={ R.colors.white }
+        onPress={ () => navigation.goBack() } />
     </View>
     <FlatList
       style={ styles.menuContainer }

@@ -6,7 +6,7 @@ import { Constants } from 'expo'
 import R from 'res/R'
 import Screen from 'components/Screen'
 import TextButton from 'components/TextButton'
-import CloseButton from 'components/CloseButton'
+import IconButton from 'components/IconButton'
 import WhiteText from 'components/WhiteText'
 import BasketList from './BasketList'
 
@@ -33,7 +33,11 @@ class Basket extends React.Component {
         <WhiteText style={[R.palette.headerTitle, styles.headerTitle]}>
           My Basket
         </WhiteText>
-        <CloseButton onPress={ () => this.props.navigation.goBack() } />
+        <IconButton
+          name='close'
+          size={ 40 }
+          color={ R.colors.white }
+          onPress={ () => this.props.navigation.goBack() } />
       </View>
     </View>
   )
