@@ -17,14 +17,19 @@ class Basket extends React.Component {
   constructor(props) {
     super(props)
     this.store = this.props.store.basketStore
-    this.state = {
-      items: [],
-    }
   }
 
   async componentDidMount() {
-    const items = await this.store.getItems()
-    this.setState({ items })
+    await this.store.getItems()
+  }
+
+  removeItem = async (item) => {
+    const removed = await this.store.removeItem(item.id)
+    console.log('Removed basket item:', removed)
+  }
+
+  removeAllItems = () => {
+    this.store.removeAll()
   }
 
   renderTitle = () => (
@@ -43,16 +48,20 @@ class Basket extends React.Component {
   )
 
   render() {
-    const { items } = this.state
+    const items = this.store.items
 
     return (
       <Screen
         containerStyle={ styles.container }
+        contentContainerStyle={ styles.contentContainer }
         floatingChildren={ this.renderTitle() }>
         <WhiteText style={[R.palette.bold, R.palette.mt1, R.palette.mb2]}>
           ADDED PRODUCTS
         </WhiteText>
-        <BasketList items={ items } />
+        <BasketList
+          style={ R.palette.mb2 }
+          items={ items }
+          onRemoveItem={ this.removeItem } />
         <TextButton
           lg
           style={ styles.finishButton }
@@ -61,6 +70,7 @@ class Basket extends React.Component {
         </TextButton>
         <TextButton
           lg
+          onPress={ this.removeAllItems }
           style={ styles.clearButton }
           textStyle={ styles.whiteText }>
           Clear basket
@@ -73,6 +83,9 @@ class Basket extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: R.colors.darkScreenBackground,
+  },
+  contentContainer: {
+    flexGrow: 1,
   },
   header: {
     position: 'absolute',

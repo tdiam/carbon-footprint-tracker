@@ -36,6 +36,24 @@ class BasketStore {
   }
 
   @action
+  async removeItem(id) {
+    const index = this.items.findIndex(el => el.id === id)
+    if (index < 0) {
+      return undefined
+    }
+    // splice returns an array of the deleted elements
+    const item = this.items.splice(index, 1)[0]
+    await this.save()
+    return item
+  }
+
+  @action
+  async removeAll() {
+    this.items = []
+    await this.save()
+  }
+
+  @action
   async save() {
     try {
       const json = JSON.stringify(this.items.map(item => item.toJSON()))

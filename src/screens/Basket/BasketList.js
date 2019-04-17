@@ -1,7 +1,8 @@
 import React from 'react'
-import { StyleSheet, View, FlatList, TouchableOpacity, Text } from 'react-native'
+import { StyleSheet, View, FlatList } from 'react-native'
 
 import R from 'res/R'
+import BasketItem from './BasketItem'
 
 
 class BasketList extends React.Component {
@@ -24,13 +25,7 @@ class BasketList extends React.Component {
           data={ items }
           ItemSeparatorComponent={ this.renderSeparator }
           renderItem={({ item }) => (
-            <TouchableOpacity
-              style={ styles.basketItem }>
-              <Text style={ styles.basketItemText }>{ item.productName }</Text>
-              <Text style={ styles.basketItemAmountText }>
-                { item.amount } { item.amountUnit }
-              </Text>
-            </TouchableOpacity>
+            <BasketItem item={ item } onRemove={ () => this.props.onRemoveItem(item) } />
           )}
           keyExtractor={ item => item.id.toString() } />
       </View>
@@ -42,16 +37,6 @@ const styles = StyleSheet.create({
   basketItems: {
     backgroundColor: R.colors.white,
     borderRadius: 10,
-  },
-  basketItem: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 20,
-  },
-  basketItemAmountText: {
-    fontSize: 12,
   },
   itemSeparator: {
     backgroundColor: R.colors.primary,
