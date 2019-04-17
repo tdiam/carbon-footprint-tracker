@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, Text } from 'react-native'
 
 import R from 'res/R'
 import IconButton from 'components/IconButton'
+import commonStyles from './styles'
 
 
 class BasketItem extends React.Component {
@@ -15,7 +16,7 @@ class BasketItem extends React.Component {
 
     return (
       <TouchableOpacity
-        style={ styles.basketItem }>
+        style={ commonStyles.basketItem }>
         <Text style={ styles.basketItemText }>{ productName }</Text>
         <Text style={ styles.basketItemAmountText }>
           { amount } { amountUnit }
@@ -32,12 +33,6 @@ class BasketItem extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  basketItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 14,
-  },
   basketItemAmountText: {
     fontSize: 12,
     marginLeft: 'auto',

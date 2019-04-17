@@ -1,8 +1,9 @@
 import React from 'react'
-import { StyleSheet, View, FlatList } from 'react-native'
+import { StyleSheet, View, Text, FlatList } from 'react-native'
 
 import R from 'res/R'
 import BasketItem from './BasketItem'
+import commonStyles from './styles'
 
 
 class BasketList extends React.Component {
@@ -12,6 +13,10 @@ class BasketList extends React.Component {
 
   renderSeparator = () => (
     <View style={ styles.itemSeparator }></View>
+  )
+
+  renderEmpty = () => (
+    <Text style={ commonStyles.basketItem }>The basket is empty.</Text>
   )
 
   render() {
@@ -24,6 +29,7 @@ class BasketList extends React.Component {
           horizontal={ false }
           data={ items }
           ItemSeparatorComponent={ this.renderSeparator }
+          ListEmptyComponent={ this.renderEmpty }
           renderItem={({ item }) => (
             <BasketItem item={ item } onRemove={ () => this.props.onRemoveItem(item) } />
           )}

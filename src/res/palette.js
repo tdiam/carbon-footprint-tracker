@@ -67,6 +67,9 @@ export default {
     bottom: 24,
     right: 24,
   },
+  disabledButton: {
+    opacity: 0.2,
+  },
   bold: {
     fontWeight: 'bold',
   },

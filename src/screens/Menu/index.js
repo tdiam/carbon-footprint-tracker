@@ -33,34 +33,44 @@ const menuItems = [
   }
 ]
 
-const Menu = ({ navigation }) => (
-  <SafeAreaView style={ styles.container }>
-    <View style={ styles.closeButtonContainer }>
-      <IconButton
-        name='close'
-        size={ 40 }
-        color={ R.colors.white }
-        onPress={ () => navigation.goBack() } />
-    </View>
-    <FlatList
-      style={ styles.menuContainer }
-      contentContainerStyle={ styles.menuContentContainer }
-      data={ menuItems }
-      renderItem={({ item }) => (
-        <TouchableOpacity style={ styles.menuItem }
-          onPress={ () => navigation.navigate(item.screen) }>
-          <Text style={ styles.menuItemText }>{ item.title }</Text>
-        </TouchableOpacity>
-      )}
-      keyExtractor={ item => item.screen } 
-    />
-    <View style={ styles.basketButtonContainer }>
-      <BasketButton
-        onPress={ () => navigation.navigate('AddToBasket') }
-        message='+' />
-    </View>
-  </SafeAreaView>
-)
+class Menu extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    const { navigation } = this.props
+
+    return (
+      <SafeAreaView style={ styles.container }>
+        <View style={ styles.closeButtonContainer }>
+          <IconButton
+            name='close'
+            size={ 40 }
+            color={ R.colors.white }
+            onPress={ () => navigation.goBack() } />
+        </View>
+        <FlatList
+          style={ styles.menuContainer }
+          contentContainerStyle={ styles.menuContentContainer }
+          data={ menuItems }
+          renderItem={({ item }) => (
+            <TouchableOpacity style={ styles.menuItem }
+              onPress={ () => navigation.navigate(item.screen) }>
+              <Text style={ styles.menuItemText }>{ item.title }</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={ item => item.screen }
+        />
+        <View style={ styles.basketButtonContainer }>
+          <BasketButton
+            onPress={ () => navigation.navigate('AddToBasket') }
+            message='+' />
+        </View>
+      </SafeAreaView>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   container: {

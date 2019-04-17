@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { observer, inject } from 'mobx-react'
 import { Constants } from 'expo'
 
@@ -16,20 +16,30 @@ import BasketList from './BasketList'
 class Basket extends React.Component {
   constructor(props) {
     super(props)
-    this.store = this.props.store.basketStore
+    this.basketStore = props.store.basketStore
+    this.purchaseStore = props.store.purchaseStore
   }
 
-  async componentDidMount() {
-    await this.store.getItems()
+  componentDidMount() {
+    this.basketStore.sync()
   }
 
   removeItem = async (item) => {
-    const removed = await this.store.removeItem(item.id)
+    const removed = await this.basketStore.removeItem(item.id)
     console.log('Removed basket item:', removed)
   }
 
   removeAllItems = () => {
-    this.store.removeAll()
+    this.basketStore.removeAll()
+  }
+
+  saveBasket = async () => {
+    await this.purchaseStore.addItem({
+      timestamp: Date.now(),
+      basket: this.basketStore.items,
+    })
+    console.log('Purchases:', this.purchaseStore.items)
+    this.basketStore.removeAll()
   }
 
   renderTitle = () => (
@@ -48,7 +58,8 @@ class Basket extends React.Component {
   )
 
   render() {
-    const items = this.store.items
+    const items = this.basketStore.items
+    const isBasketEmpty = !items.length
 
     return (
       <Screen
@@ -64,14 +75,23 @@ class Basket extends React.Component {
           onRemoveItem={ this.removeItem } />
         <TextButton
           lg
-          style={ styles.finishButton }
+          disabled={ isBasketEmpty }
+          onPress={ () => this.saveBasket() }
+          style={[
+            styles.finishButton,
+            isBasketEmpty && R.palette.disabledButton,
+          ]}
           textStyle={ styles.whiteText }>
           Finish
         </TextButton>
         <TextButton
           lg
+          disabled={ isBasketEmpty }
           onPress={ this.removeAllItems }
-          style={ styles.clearButton }
+          style={[
+            styles.clearButton,
+            isBasketEmpty && R.palette.disabledButton,
+          ]}
           textStyle={ styles.whiteText }>
           Clear basket
         </TextButton>

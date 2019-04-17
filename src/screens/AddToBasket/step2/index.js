@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Keyboard } from 'react-native'
 import { inject, observer } from 'mobx-react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
@@ -33,6 +33,7 @@ class AddToBasket2 extends React.Component {
    * @todo Better id generation.
    */
   handleSubmit = () => {
+    Keyboard.dismiss()
     const { product, amount } = this.state
     this.store.addItem({
       id: Math.floor(Math.random() * 10000000),
