@@ -12,6 +12,7 @@ import {
   AddToBasket1,
   AddToBasket2,
 } from './src/screens/AddToBasket'
+import Settings from './src/screens/Settings'
 import R from 'res/R'
 
 
@@ -30,6 +31,7 @@ AddToBasketStack.navigationOptions = {
 
 const MainStack = createStackNavigator({
   Home,
+  Settings,
   AddToBasket: AddToBasketStack,
 }, {
   defaultNavigationOptions: {

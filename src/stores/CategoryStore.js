@@ -36,6 +36,12 @@ class CategoryStore {
   }
 
   @action
+  async forceReseed() {
+    await AsyncStorage.removeItem('@Category:HasSeeded')
+    await this.initialSeed()
+  }
+
+  @action
   async sync() {
     if (this._hasSyncedWithStorage) return
     await this.initialSeed()
@@ -53,7 +59,6 @@ class CategoryStore {
       )
       console.log('Fetched category data:')
       console.table(items)
-      console.log(this._autoincrement)
     } catch(err) {
       console.error(err)
       items = []

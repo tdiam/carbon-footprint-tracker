@@ -39,14 +39,20 @@ class AddToBasket1 extends React.Component {
 
     // Reverse to show most recently added products first
     const recentProducts = this.purchaseStore.recentProducts.slice().reverse()
+    const showRecentProducts = !!recentProducts.length
     const categories = this.categoryStore.items.slice()
 
     return (
       <React.Fragment>
         <NavigationEvents onDidFocus={ this.handleScreenFocus } />
         <BasketScreen onRef={ this.screen }>
-          <RecentProducts products={ recentProducts } styles={ styles } />
-          <Text style={[R.palette.screenSection, R.palette.screenSectionMargined]}>
+          { showRecentProducts && (
+            <RecentProducts products={ recentProducts } styles={ styles } />
+          )}
+          <Text style={[
+            R.palette.screenSection,
+            showRecentProducts && R.palette.screenSectionMargined
+          ]}>
             Select category:
           </Text>
           <FlatList
@@ -71,11 +77,13 @@ class AddToBasket1 extends React.Component {
             )}
             keyExtractor={ item => item.id.toString() }
           />
-          <TextButton
-            style={ R.palette.mt2 }
-            lg>
-            Add new category
-          </TextButton>
+          {/*
+            <TextButton
+              style={ R.palette.mt2 }
+              lg>
+              Add new category
+            </TextButton>
+          */}
         </BasketScreen>
       </React.Fragment>
     )
