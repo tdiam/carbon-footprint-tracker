@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, FlatList, Text } from 'react-native'
+import { inject, observer } from 'mobx-react'
 
 import TextButton from 'components/TextButton'
 import R from 'res/R'
@@ -51,13 +52,21 @@ const searchHistory = [
 const CategoryItem = CategoryItemImage
 
 
+@inject('store')
+@observer
 class AddToBasket1 extends React.Component {
   constructor(props) {
     super(props)
+    this.categoryStore = props.store.categoryStore
+  }
+
+  componentDidMount() {
+    this.categoryStore.sync()
   }
 
   render() {
     const { navigation } = this.props
+    const categories = this.categoryStore.items
 
     return (
       <BasketScreen>
@@ -67,22 +76,22 @@ class AddToBasket1 extends React.Component {
         </Text>
         <FlatList
           columnWrapperStyle={ styles.row }
-          data={ searchHistory }
+          data={ categories }
           numColumns={ 3 }
           horizontal={ false }
           renderItem={({ item }, index) => (
             <CategoryItem
-              image={ R.images.avocado }
+              image={ R.images[item.image] }
               style={[
                 styles.rowItem,
                 index % 3 == 0 ? styles.rowItemMargined : {},
               ]}
               onPress={() => {
                 navigation.navigate('AddToBasket2', {
-                  category: item.title,
+                  category: item.name,
                 })
               }}>
-              { item.title }
+              { item.name }
             </CategoryItem>
           )}
           keyExtractor={ item => item.id.toString() }

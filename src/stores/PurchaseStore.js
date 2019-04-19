@@ -28,6 +28,9 @@ class PurchaseStore {
     try {
       items = await AsyncStorage.getItem('@Purchases:Items')
       items = JSON.parse(items)
+      if (items.constructor !== Array) {
+        throw new Error('Stored items is not an array')
+      }
     } catch(err) {
       console.error(err)
       items = []
