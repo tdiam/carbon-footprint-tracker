@@ -68,6 +68,7 @@ class AddToBasket1 extends React.Component {
                   index % 3 == 0 ? styles.rowItemMargined : {},
                 ]}
                 onPress={() => {
+                  R.touchLog('AddToBasket', 'Category', item.name)
                   navigation.navigate('AddToBasket2', {
                     category: item.id,
                   })

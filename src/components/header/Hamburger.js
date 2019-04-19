@@ -9,7 +9,10 @@ const Hamburger = ({ navigation }) => (
   <IconButton
     name='menu'
     size={ 40 }
-    onPress={ () => navigation.navigate('Menu') } />
+    onPress={() => {
+      R.touchLog('Hamburger')
+      navigation.navigate('Menu')
+    }} />
 )
 
 export default withNavigation(Hamburger)

@@ -43,7 +43,10 @@ class BasketScreen extends React.Component {
       <Screen
         floatingChildren={
           <BasketButton
-            onPress={ () => navigation.navigate('Basket') }
+            onPress={() => {
+              R.touchLog('BasketScreen', 'BasketIcon')
+              navigation.navigate('Basket')
+            }}
             message={ basketSize.toString() }
             messageScale={ messageScale }
             style={ R.palette.floating } />

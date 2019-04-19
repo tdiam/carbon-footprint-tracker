@@ -17,6 +17,7 @@ class RecentProducts extends React.Component {
   }
 
   seeMoreProducts = () => {
+    R.touchLog('AddToBasket', 'SeeMoreProducts')
     // Try to increase by 9, not exceeding total length though
     let newLimit = Math.min(
       this.state.productsLimit + 9,
@@ -55,6 +56,7 @@ class RecentProducts extends React.Component {
                 index % 3 == 0 ? parentStyles.rowItemMargined : {},
               ]}
               onPress={() => {
+                R.touchLog('AddToBasket', 'RecentProduct', item.productName)
                 navigation.navigate('AddToBasket2', {
                   product: item.productName,
                   category: item.category,

@@ -25,14 +25,17 @@ class Basket extends React.Component {
   }
 
   removeItem = async (item) => {
+    R.touchLog('Basket', 'removeItem', item.productName, item.amount, item.amountUnit)
     const removed = await this.basketStore.removeItem(item.id)
   }
 
   removeAllItems = () => {
+    R.touchLog('Basket', 'clear')
     this.basketStore.removeAll()
   }
 
   saveBasket = async () => {
+    R.touchLog('Basket', 'save')
     await this.purchaseStore.addItem({
       timestamp: Date.now(),
       basket: this.basketStore.items,
@@ -53,7 +56,10 @@ class Basket extends React.Component {
           name='close'
           size={ 40 }
           color={ R.colors.white }
-          onPress={ () => this.props.navigation.goBack() } />
+          onPress={() => {
+            R.touchLog('Basket', 'close')
+            this.props.navigation.goBack()
+          }} />
       </View>
     </View>
   )

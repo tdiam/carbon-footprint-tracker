@@ -8,26 +8,22 @@ import {
   FlatList,
   Keyboard,
 } from 'react-native'
+import { inject, observer } from 'mobx-react'
 
 import TextInput from 'components/TextInput'
 import R from 'res/R'
 
 
-const products = [
-  'milk',
-  'eggplant',
-  'carrot',
-  'peanuts',
-  'melon',
-  'cheese',
-  'pasta',
-  'beef',
-  'eggs',
-]
-
+@inject('store')
+@observer
 class ProductAutocomplete extends React.Component {
   constructor(props) {
     super(props)
+    this.store = this.props.store.purchaseStore
+  }
+
+  componentDidMount() {
+    this.store.sync()
   }
 
   getAutocompleteList() {
@@ -36,9 +32,9 @@ class ProductAutocomplete extends React.Component {
     if (query.length <= 1) return []
 
     query = query.toLowerCase()
-    return products.filter(product => {
-      product = product.toLowerCase()
-      return product.startsWith(query) && product != query
+    return this.store.recentProducts.filter(({ productName }) => {
+      productName = productName.toLowerCase()
+      return productName.startsWith(query) && productName != query
     })
   }
 
@@ -71,11 +67,14 @@ class ProductAutocomplete extends React.Component {
                 renderItem={({ item }) => (
                   <TouchableOpacity
                     style={ styles.autocompleteItem }
-                    onPress={ () => this.onAutocompletePress(item) }>
-                    <Text style={ styles.autocompleteItemText }>{ item }</Text>
+                    onPress={() => {
+                      R.touchLog('AddToBasket', 'Autocomplete', query, item.productName)
+                      this.onAutocompletePress(item.productName)
+                    }}>
+                    <Text style={ styles.autocompleteItemText }>{ item.productName }</Text>
                   </TouchableOpacity>
                 )}
-                keyExtractor={ (_item, index) => index.toString() } />
+                keyExtractor={ item => item.id.toString() } />
             </View>
           </View>
         )}

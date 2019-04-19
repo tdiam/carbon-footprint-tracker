@@ -34,11 +34,15 @@ class AddToBasket2 extends React.Component {
    */
   handleSubmit = () => {
     const { product, amount } = this.state
-    this.store.addItem({
-      id: Math.floor(Math.random() * 10000000),
+    const item = {
       productName: product.trim(),
       amount,
       amountUnit: 'kg',
+    }
+    R.touchLog('AddToBasket', 'Submit', item)
+    this.store.addItem({
+      id: Math.floor(Math.random() * 10000000),
+      ...item,
     })
     this.props.navigation.navigate('AddToBasket1', {
       animateBasketButton: true,
@@ -72,9 +76,12 @@ class AddToBasket2 extends React.Component {
             minimumValue={ AMOUNT_MIN }
             maximumValue={ AMOUNT_MAX }
             step={ AMOUNT_STEP }
-            onValueChange={ amount => (
+            onValueChange={ amount => {
               this.setState({ amount: roundAmount(amount) })
-            )} />
+            }}
+            onSlidingComplete={ amount => {
+              R.touchLog('AddToBasket', 'AmountSlider', roundAmount(amount))
+            }} />
           <Text style={ styles.sliderLimits }>{ AMOUNT_MIN } kg</Text>
           <Text style={ styles.sliderLimits }>{ AMOUNT_MAX } kg</Text>
         </View>

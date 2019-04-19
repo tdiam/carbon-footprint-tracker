@@ -2,7 +2,6 @@ import React from 'react'
 import {
   StyleSheet,
   View,
-  SafeAreaView,
   Text,
   TouchableOpacity,
   FlatList,
@@ -10,6 +9,7 @@ import {
 import { Constants } from 'expo'
 
 import R from 'res/R'
+import Screen from 'components/Screen'
 import IconButton from 'components/IconButton'
 import BasketButton from 'components/BasketButton'
 
@@ -42,32 +42,46 @@ class Menu extends React.Component {
     const { navigation } = this.props
 
     return (
-      <SafeAreaView style={ styles.container }>
-        <View style={ styles.closeButtonContainer }>
-          <IconButton
-            name='close'
-            size={ 40 }
-            color={ R.colors.white }
-            onPress={ () => navigation.goBack() } />
-        </View>
+      <Screen
+        containerStyle={ styles.container }
+        floatingChildren={
+          <React.Fragment>
+            <View style={ styles.closeButtonContainer }>
+              <IconButton
+                name='close'
+                size={ 40 }
+                color={ R.colors.white }
+                onPress={() => {
+                  R.touchLog('Menu', 'close')
+                  navigation.goBack()
+                }} />
+            </View>
+            <View style={ styles.basketButtonContainer }>
+              <BasketButton
+                onPress={() => {
+                  R.touchLog('Menu', 'AddToBasket')
+                  navigation.navigate('AddToBasket')
+                }}
+                message='+' />
+            </View>
+          </React.Fragment>
+        }>
         <FlatList
           style={ styles.menuContainer }
           contentContainerStyle={ styles.menuContentContainer }
           data={ menuItems }
           renderItem={({ item }) => (
             <TouchableOpacity style={ styles.menuItem }
-              onPress={ () => navigation.navigate(item.screen) }>
+              onPress={() => {
+                R.touchLog('Menu', item.screen)
+                navigation.navigate(item.screen)
+              }}>
               <Text style={ styles.menuItemText }>{ item.title }</Text>
             </TouchableOpacity>
           )}
           keyExtractor={ item => item.screen }
         />
-        <View style={ styles.basketButtonContainer }>
-          <BasketButton
-            onPress={ () => navigation.navigate('AddToBasket') }
-            message='+' />
-        </View>
-      </SafeAreaView>
+      </Screen>
     )
   }
 }
@@ -81,7 +95,7 @@ const styles = StyleSheet.create({
   },
   closeButtonContainer: {
     position: 'absolute',
-    top: Constants.statusBarHeight + 12,
+    top: Constants.statusBarHeight + 16,
     flex: 1,
     alignItems: 'flex-end',
     justifyContent: 'center',
@@ -94,8 +108,8 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   menuContentContainer: {
-    marginTop: 160,
-    marginHorizontal: 48,
+    marginTop: 80,
+    marginHorizontal: 0,
   },
   menuItem: {
     paddingVertical: 12,

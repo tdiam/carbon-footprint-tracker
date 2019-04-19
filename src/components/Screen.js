@@ -3,10 +3,14 @@ import { SafeAreaView, ScrollView } from 'react-native'
 
 import R from 'res/R'
 
-
 class Screen extends React.Component {
   constructor(props) {
     super(props)
+  }
+
+  handleTouch = () => {
+    R.touchLog('@Root')
+    return false
   }
 
   render() {
@@ -19,7 +23,9 @@ class Screen extends React.Component {
 
     return (
       <SafeAreaView
-        style={[R.palette.screenContainer, containerStyle]}>
+        style={[R.palette.screenContainer, containerStyle]}
+        onStartShouldSetResponderCapture={ this.handleTouch }
+        >
         <ScrollView
           keyboardShouldPersistTaps='handled'
           style={ R.palette.screenContent }
