@@ -46,7 +46,7 @@ class CategoryStore {
       items = await AsyncStorage.getItem('@Category:Items')
       items = JSON.parse(items)
       if (items.constructor !== Array) {
-        throw new Error('Stored items is not an array')
+        throw new Error('Stored category items is not an array')
       }
       this._autoincrement = parseInt(
         await AsyncStorage.getItem('@Category:ItemsAutoincrementId')

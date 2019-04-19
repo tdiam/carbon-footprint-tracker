@@ -33,13 +33,15 @@ class AddToBasket2 extends React.Component {
    * @todo Better id generation.
    */
   handleSubmit = () => {
-    Keyboard.dismiss()
     const { product, amount } = this.state
     this.store.addItem({
       id: Math.floor(Math.random() * 10000000),
-      productName: product,
+      productName: product.trim(),
       amount,
       amountUnit: 'kg',
+    })
+    this.props.navigation.navigate('AddToBasket1', {
+      animateBasketButton: true,
     })
   }
 

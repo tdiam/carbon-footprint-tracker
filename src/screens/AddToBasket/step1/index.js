@@ -5,103 +5,79 @@ import { inject, observer } from 'mobx-react'
 import TextButton from 'components/TextButton'
 import R from 'res/R'
 import BasketScreen from '../BasketScreen'
-import SearchHistory from './SearchHistory'
+import RecentProducts from './RecentProducts'
 import CategoryItemText from './CategoryItemText'
 import CategoryItemImage from './CategoryItemImage'
+import { NavigationEvents } from 'react-navigation';
 
-
-const searchHistory = [
-  {
-    id: 1,
-    title: 'milk',
-  },
-  {
-    id: 2,
-    title: 'eggplant',
-  },
-  {
-    id: 3,
-    title: 'carrot',
-  },
-  {
-    id: 4,
-    title: 'peanuts',
-  },
-  {
-    id: 5,
-    title: 'melon',
-  },
-  {
-    id: 6,
-    title: 'cheese',
-  },
-  {
-    id: 7,
-    title: 'pasta',
-  },
-  {
-    id: 8,
-    title: 'beef',
-  },
-  {
-    id: 9,
-    title: 'eggs',
-  },
-]
 
 const CategoryItem = CategoryItemImage
-
 
 @inject('store')
 @observer
 class AddToBasket1 extends React.Component {
   constructor(props) {
     super(props)
+    this.purchaseStore = props.store.purchaseStore
     this.categoryStore = props.store.categoryStore
+    this.screen = React.createRef()
   }
 
   componentDidMount() {
+    this.purchaseStore.sync()
     this.categoryStore.sync()
+  }
+
+  handleScreenFocus = () => {
+    if (this.props.navigation.getParam('animateBasketButton', false)) {
+      this.screen.current.wrappedInstance.animateBasketButton()
+    }
   }
 
   render() {
     const { navigation } = this.props
-    const categories = this.categoryStore.items
+
+    // Reverse to show most recently added products first
+    const recentProducts = this.purchaseStore.recentProducts.slice().reverse()
+    const categories = this.categoryStore.items.slice()
 
     return (
-      <BasketScreen>
-        <SearchHistory searchHistory={ searchHistory } styles={ styles } />
-        <Text style={ [R.palette.screenSection, R.palette.screenSectionMargined] }>
-          Select category:
-        </Text>
-        <FlatList
-          columnWrapperStyle={ styles.row }
-          data={ categories }
-          numColumns={ 3 }
-          horizontal={ false }
-          renderItem={({ item }, index) => (
-            <CategoryItem
-              image={ R.images[item.image] }
-              style={[
-                styles.rowItem,
-                index % 3 == 0 ? styles.rowItemMargined : {},
-              ]}
-              onPress={() => {
-                navigation.navigate('AddToBasket2', {
-                  category: item.name,
-                })
-              }}>
-              { item.name }
-            </CategoryItem>
-          )}
-          keyExtractor={ item => item.id.toString() }
-        />
-        <TextButton
-          style={ R.palette.mt2 }
-          lg>
-          Add new category
-        </TextButton>
-      </BasketScreen>
+      <React.Fragment>
+        <NavigationEvents onDidFocus={ this.handleScreenFocus } />
+        <BasketScreen onRef={ this.screen }>
+          <RecentProducts products={ recentProducts } styles={ styles } />
+          <Text style={[R.palette.screenSection, R.palette.screenSectionMargined]}>
+            Select category:
+          </Text>
+          <FlatList
+            columnWrapperStyle={ styles.row }
+            data={ categories }
+            numColumns={ 3 }
+            horizontal={ false }
+            renderItem={({ item }, index) => (
+              <CategoryItem
+                image={ R.images[item.image] }
+                style={[
+                  styles.rowItem,
+                  index % 3 == 0 ? styles.rowItemMargined : {},
+                ]}
+                onPress={() => {
+                  navigation.navigate('AddToBasket2', {
+                    category: item.id,
+                  })
+                }}>
+                { item.name }
+              </CategoryItem>
+            )}
+            keyExtractor={ item => item.id.toString() }
+          />
+          <TextButton
+            style={ R.palette.mt2 }
+            lg>
+            Add new category
+          </TextButton>
+        </BasketScreen>
+      </React.Fragment>
     )
   }
 }

@@ -26,7 +26,6 @@ class Basket extends React.Component {
 
   removeItem = async (item) => {
     const removed = await this.basketStore.removeItem(item.id)
-    console.log('Removed basket item:', removed)
   }
 
   removeAllItems = () => {
@@ -38,8 +37,10 @@ class Basket extends React.Component {
       timestamp: Date.now(),
       basket: this.basketStore.items,
     })
-    console.log('Purchases:', this.purchaseStore.items)
     this.basketStore.removeAll()
+    this.props.navigation.navigate('AddToBasket1', {
+      animateBasketButton: true,
+    })
   }
 
   renderTitle = () => (
@@ -71,7 +72,7 @@ class Basket extends React.Component {
         </WhiteText>
         <BasketList
           style={ R.palette.mb2 }
-          items={ items }
+          items={ items.slice() }
           onRemoveItem={ this.removeItem } />
         <TextButton
           lg

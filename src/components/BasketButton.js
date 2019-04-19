@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, Animated, View, Text, TouchableOpacity } from 'react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 import R from 'res/R'
@@ -10,22 +10,43 @@ const BUTTON_SIZE = 72
 const MESSAGE_FONT_SIZE = 12
 const MESSAGE_SIZE = 20
 
-const BasketButton = ({ style, message, onPress }) => (
-  <TouchableOpacity style={[styles.container, style]} onPress={ onPress }>
-    <MaterialIcons
-      name='shopping-basket'
-      size={ ICON_SIZE }
-      color={ R.colors.white } />
-    { message && (
-      <View style={ styles.message }>
-        <Text style={ styles.messageText }>{ message }</Text>
-      </View>
-    )}
-  </TouchableOpacity>
-)
-
 // radius * (1 - cos(45deg))
 const messageOffset = (BUTTON_SIZE / 2) * (1 - Math.sin(Math.PI / 4))
+
+class BasketButton extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    const { style, message, messageScale, onPress } = this.props
+
+    const dynamicMessageStyle = messageScale && {
+      transform: [
+        ...styles.message.transform,
+        {
+          scale: messageScale,
+        },
+      ],
+    }
+
+    return (
+      <TouchableOpacity style={[styles.container, style]} onPress={ onPress }>
+        <MaterialIcons
+          name='shopping-basket'
+          size={ ICON_SIZE }
+          color={ R.colors.white } />
+        { message && (
+          <Animated.View style={[styles.message, dynamicMessageStyle]}>
+            <Text style={ styles.messageText }>
+              { message }
+            </Text>
+          </Animated.View>
+        )}
+      </TouchableOpacity>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -34,26 +55,31 @@ const styles = StyleSheet.create({
     padding: (BUTTON_SIZE - ICON_SIZE) / 2,
   },
   message: {
+    backgroundColor: R.colors.redHighlight,
     position: 'absolute',
-    top: messageOffset - MESSAGE_SIZE / 2,
-    right: messageOffset - MESSAGE_SIZE / 2,
+    top: messageOffset,
+    right: messageOffset,
     width: MESSAGE_SIZE,
     height: MESSAGE_SIZE,
     borderRadius: MESSAGE_SIZE / 2,
-    backgroundColor: R.colors.redHighlight,
+    transform: [{
+      translateX: MESSAGE_SIZE / 2,
+    }, {
+      translateY: -MESSAGE_SIZE / 2,
+    }],
   },
   messageText: {
     color: R.colors.white,
     fontSize: MESSAGE_FONT_SIZE,
-    lineHeight: MESSAGE_SIZE,
     position: 'absolute',
     top: 0,
     left: 0,
-    width: MESSAGE_SIZE,
-    height: MESSAGE_SIZE,
     includeFontPadding: false,
     textAlign: 'center',
     textAlignVertical: 'center',
+    lineHeight: MESSAGE_SIZE,
+    width: MESSAGE_SIZE,
+    height: MESSAGE_SIZE,
   }
 })
 
