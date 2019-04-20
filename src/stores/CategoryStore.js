@@ -23,22 +23,32 @@ class CategoryStore {
     if (hasSeeded === 'true') return
 
     this.items = categories
+    console.log('Replacing categories with:')
+    console.table(categories)
     // Set autoincrement to one more than the max id (or 0 if no items)
     const autoincrement = Math.max(0, ...this.items.map(item => item.id)) + 1
 
-    const success = await this.save()
-    if (success) {
-      await Promise.all([
-        AsyncStorage.setItem('@Category:HasSeeded', 'true'),
-        this._updateAutoincrement(autoincrement),
-      ])
+    try {
+      const success = await this.save()
+      if (success) {
+        await Promise.all([
+          AsyncStorage.setItem('@Category:HasSeeded', 'true'),
+          this._updateAutoincrement(autoincrement),
+        ])
+      }
+    } catch(err) {
+      console.error(err)
     }
   }
 
   @action
   async forceReseed() {
-    await AsyncStorage.removeItem('@Category:HasSeeded')
-    await this.initialSeed()
+    try {
+      await AsyncStorage.removeItem('@Category:HasSeeded')
+      await this.initialSeed()
+    } catch(err) {
+      console.error(err)
+    }
   }
 
   @action
@@ -50,15 +60,13 @@ class CategoryStore {
 
     try {
       items = await AsyncStorage.getItem('@Category:Items')
-      items = JSON.parse(items)
+      items = !items ? [] : JSON.parse(items)
       if (items.constructor !== Array) {
         throw new Error('Stored category items is not an array')
       }
       this._autoincrement = parseInt(
         await AsyncStorage.getItem('@Category:ItemsAutoincrementId')
       )
-      console.log('Fetched category data:')
-      console.table(items)
     } catch(err) {
       console.error(err)
       items = []

@@ -1,18 +1,32 @@
 import React from 'react'
 import { withNavigation } from 'react-navigation'
+import { inject, observer } from 'mobx-react'
 
 import R from 'res/R'
 import IconButton from '../IconButton'
 
 
-const Hamburger = ({ navigation }) => (
-  <IconButton
-    name='menu'
-    size={ 40 }
-    onPress={() => {
-      R.touchLog('Hamburger')
-      navigation.navigate('Menu')
-    }} />
-)
+@withNavigation
+@inject('store')
+@observer
+class Hamburger extends React.Component {
+  constructor(props) {
+    super(props)
+    this.touchLog = R.touchLog.bind(this)
+  }
 
-export default withNavigation(Hamburger)
+  render() {
+    const { navigation } = this.props
+    return (
+      <IconButton
+        name='menu'
+        size={ 40 }
+        onPress={() => {
+          this.touchLog('Hamburger')
+          navigation.navigate('Menu')
+        }} />
+    )
+  }
+}
+
+export default Hamburger

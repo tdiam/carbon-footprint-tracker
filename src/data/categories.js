@@ -4,7 +4,7 @@ export default [
     "name": "Fruits & Vegetables",
     "image": "avocado",
     "unit": "kg",
-    "carbonPerUnit": "1.0",
+    "carbonPerUnit": 1.0,
     "_builtin": true,
   },
   {
@@ -12,7 +12,7 @@ export default [
     "name": "Dairy products",
     "image": "avocado",
     "unit": "kg",
-    "carbonPerUnit": "1.0",
+    "carbonPerUnit": 1.0,
     "_builtin": true,
   },
   {
@@ -20,7 +20,7 @@ export default [
     "name": "Fats & Oils",
     "image": "avocado",
     "unit": "kg",
-    "carbonPerUnit": "1.0",
+    "carbonPerUnit": 1.0,
     "_builtin": true,
   },
   {
@@ -28,7 +28,7 @@ export default [
     "name": "Meat",
     "image": "avocado",
     "unit": "kg",
-    "carbonPerUnit": "1.0",
+    "carbonPerUnit": 1.0,
     "_builtin": true,
   },
   {
@@ -36,7 +36,7 @@ export default [
     "name": "Fish",
     "image": "avocado",
     "unit": "kg",
-    "carbonPerUnit": "1.0",
+    "carbonPerUnit": 1.0,
     "_builtin": true,
   },
   {
@@ -44,7 +44,7 @@ export default [
     "name": "Eggs",
     "image": "avocado",
     "unit": "kg",
-    "carbonPerUnit": "1.0",
+    "carbonPerUnit": 1.0,
     "_builtin": true,
   },
   {
@@ -52,7 +52,7 @@ export default [
     "name": "Sweeteners",
     "image": "avocado",
     "unit": "kg",
-    "carbonPerUnit": "1.0",
+    "carbonPerUnit": 1.0,
     "_builtin": true,
   },
   {
@@ -60,7 +60,7 @@ export default [
     "name": "Spices",
     "image": "avocado",
     "unit": "kg",
-    "carbonPerUnit": "1.0",
+    "carbonPerUnit": 1.0,
     "_builtin": true,
   },
   {
@@ -68,7 +68,7 @@ export default [
     "name": "Ready-to-eat",
     "image": "avocado",
     "unit": "kg",
-    "carbonPerUnit": "1.0",
+    "carbonPerUnit": 1.0,
     "_builtin": true,
   },
   {
@@ -76,7 +76,7 @@ export default [
     "name": "Beverages",
     "image": "avocado",
     "unit": "kg",
-    "carbonPerUnit": "1.0",
+    "carbonPerUnit": 1.0,
     "_builtin": true,
   },
   {
@@ -84,7 +84,7 @@ export default [
     "name": "Bakery wares",
     "image": "avocado",
     "unit": "kg",
-    "carbonPerUnit": "1.0",
+    "carbonPerUnit": 1.0,
     "_builtin": true,
   },
   {
@@ -92,7 +92,7 @@ export default [
     "name": "Confectionery",
     "image": "avocado",
     "unit": "kg",
-    "carbonPerUnit": "1.0",
+    "carbonPerUnit": 1.0,
     "_builtin": true,
   },
 ]

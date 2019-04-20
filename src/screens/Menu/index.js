@@ -7,6 +7,7 @@ import {
   FlatList,
 } from 'react-native'
 import { Constants } from 'expo'
+import { inject, observer } from 'mobx-react'
 
 import R from 'res/R'
 import Screen from 'components/Screen'
@@ -33,9 +34,13 @@ const menuItems = [
   }
 ]
 
+
+@inject('store')
+@observer
 class Menu extends React.Component {
   constructor(props) {
     super(props)
+    this.touchLog = R.touchLog.bind(this)
   }
 
   render() {
@@ -52,14 +57,14 @@ class Menu extends React.Component {
                 size={ 40 }
                 color={ R.colors.white }
                 onPress={() => {
-                  R.touchLog('Menu', 'close')
+                  this.touchLog('Menu', 'close')
                   navigation.goBack()
                 }} />
             </View>
             <View style={ styles.basketButtonContainer }>
               <BasketButton
                 onPress={() => {
-                  R.touchLog('Menu', 'AddToBasket')
+                  this.touchLog('Menu', 'AddToBasket')
                   navigation.navigate('AddToBasket')
                 }}
                 message='+' />
@@ -73,7 +78,7 @@ class Menu extends React.Component {
           renderItem={({ item }) => (
             <TouchableOpacity style={ styles.menuItem }
               onPress={() => {
-                R.touchLog('Menu', item.screen)
+                this.touchLog('Menu', item.screen)
                 navigation.navigate(item.screen)
               }}>
               <Text style={ styles.menuItemText }>{ item.title }</Text>

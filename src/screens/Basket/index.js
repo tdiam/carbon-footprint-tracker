@@ -18,6 +18,7 @@ class Basket extends React.Component {
     super(props)
     this.basketStore = props.store.basketStore
     this.purchaseStore = props.store.purchaseStore
+    this.touchLog = R.touchLog.bind(this)
   }
 
   componentDidMount() {
@@ -25,17 +26,17 @@ class Basket extends React.Component {
   }
 
   removeItem = async (item) => {
-    R.touchLog('Basket', 'removeItem', item.productName, item.amount, item.amountUnit)
+    this.touchLog('Basket', 'removeItem', item.productName, item.amount, item.amountUnit)
     const removed = await this.basketStore.removeItem(item.id)
   }
 
   removeAllItems = () => {
-    R.touchLog('Basket', 'clear')
+    this.touchLog('Basket', 'clear')
     this.basketStore.removeAll()
   }
 
   saveBasket = async () => {
-    R.touchLog('Basket', 'save')
+    this.touchLog('Basket', 'save')
     await this.purchaseStore.addItem({
       timestamp: Date.now(),
       basket: this.basketStore.items,
@@ -57,7 +58,7 @@ class Basket extends React.Component {
           size={ 40 }
           color={ R.colors.white }
           onPress={() => {
-            R.touchLog('Basket', 'close')
+            this.touchLog('Basket', 'close')
             this.props.navigation.goBack()
           }} />
       </View>

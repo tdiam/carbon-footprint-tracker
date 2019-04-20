@@ -27,6 +27,7 @@ class AddToBasket2 extends React.Component {
       amount: roundAmount(AMOUNT_MIN),
       product: props.navigation.getParam('product', ''),
     }
+    this.touchLog = R.touchLog.bind(this)
   }
 
   /**
@@ -39,7 +40,7 @@ class AddToBasket2 extends React.Component {
       amount,
       amountUnit: 'kg',
     }
-    R.touchLog('AddToBasket', 'Submit', item)
+    this.touchLog('AddToBasket', 'Submit', item)
     this.store.addItem({
       id: Math.floor(Math.random() * 10000000),
       ...item,
@@ -80,7 +81,7 @@ class AddToBasket2 extends React.Component {
               this.setState({ amount: roundAmount(amount) })
             }}
             onSlidingComplete={ amount => {
-              R.touchLog('AddToBasket', 'AmountSlider', roundAmount(amount))
+              this.touchLog('AddToBasket', 'AmountSlider', roundAmount(amount))
             }} />
           <Text style={ styles.sliderLimits }>{ AMOUNT_MIN } kg</Text>
           <Text style={ styles.sliderLimits }>{ AMOUNT_MAX } kg</Text>

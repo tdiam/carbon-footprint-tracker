@@ -2,6 +2,7 @@ import colors from './colors'
 import fonts from './fonts'
 import images from './images'
 import palette from './palette'
+import config from './config'
 import touchLog from 'utils/touchLog'
 
 export default {
@@ -9,5 +10,6 @@ export default {
   fonts,
   images,
   palette,
+  config,
   touchLog,
 }

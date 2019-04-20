@@ -28,7 +28,7 @@ class BasketStore {
 
     try {
       items = await AsyncStorage.getItem('@Basket:Items')
-      items = JSON.parse(items)
+      items = !items ? [] : JSON.parse(items)
       if (items.constructor !== Array) {
         throw new Error('Stored items is not an array')
       }

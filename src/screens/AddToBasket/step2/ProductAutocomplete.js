@@ -20,6 +20,7 @@ class ProductAutocomplete extends React.Component {
   constructor(props) {
     super(props)
     this.store = this.props.store.purchaseStore
+    this.touchLog = R.touchLog.bind(this)
   }
 
   componentDidMount() {
@@ -68,7 +69,7 @@ class ProductAutocomplete extends React.Component {
                   <TouchableOpacity
                     style={ styles.autocompleteItem }
                     onPress={() => {
-                      R.touchLog('AddToBasket', 'Autocomplete', query, item.productName)
+                      this.touchLog('AddToBasket', 'Autocomplete', query, item.productName)
                       this.onAutocompletePress(item.productName)
                     }}>
                     <Text style={ styles.autocompleteItemText }>{ item.productName }</Text>

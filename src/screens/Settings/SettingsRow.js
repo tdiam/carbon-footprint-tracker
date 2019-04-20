@@ -25,6 +25,7 @@ class SettingsRow extends React.Component {
       left,
       children,
       right,
+      style,
       ...restProps
     } = this.props
 
@@ -36,6 +37,7 @@ class SettingsRow extends React.Component {
         style={[
           styles.container,
           right && styles.twoChildren,
+          style,
         ]}
         { ...restProps }>
         <View style={ styles.leftChild }>

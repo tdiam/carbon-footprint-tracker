@@ -20,6 +20,7 @@ class AddToBasket1 extends React.Component {
     super(props)
     this.purchaseStore = props.store.purchaseStore
     this.categoryStore = props.store.categoryStore
+    this.touchLog = R.touchLog.bind(this)
     this.screen = React.createRef()
   }
 
@@ -68,7 +69,7 @@ class AddToBasket1 extends React.Component {
                   index % 3 == 0 ? styles.rowItemMargined : {},
                 ]}
                 onPress={() => {
-                  R.touchLog('AddToBasket', 'Category', item.name)
+                  this.touchLog('AddToBasket', 'Category', item.name)
                   navigation.navigate('AddToBasket2', {
                     category: item.id,
                   })

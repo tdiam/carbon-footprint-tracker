@@ -18,6 +18,7 @@ class BasketScreen extends React.Component {
     this.state = {
       messageScale: new Animated.Value(1),
     }
+    this.touchLog = R.touchLog.bind(this)
   }
 
   componentDidMount() {
@@ -44,7 +45,7 @@ class BasketScreen extends React.Component {
         floatingChildren={
           <BasketButton
             onPress={() => {
-              R.touchLog('BasketScreen', 'BasketIcon')
+              this.touchLog('BasketScreen', 'BasketIcon')
               navigation.navigate('Basket')
             }}
             message={ basketSize.toString() }

@@ -32,12 +32,12 @@ class PurchaseStore {
 
     try {
       items = await AsyncStorage.getItem('@Purchases:Items')
-      items = JSON.parse(items)
+      items = !items ? [] : JSON.parse(items)
       if (items.constructor !== Array) {
         throw new Error('Stored purchase items is not an array')
       }
       recentProducts = await AsyncStorage.getItem('@Purchases:RecentProducts')
-      recentProducts = JSON.parse(recentProducts)
+      recentProducts = !recentProducts ? [] : JSON.parse(recentProducts)
       if (recentProducts.constructor !== Array) {
         throw new Error('Stored recent products is not an array')
       }
