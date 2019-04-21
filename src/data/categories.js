@@ -10,7 +10,7 @@ export default [
   {
     "id": 2,
     "name": "Dairy products",
-    "image": "avocado",
+    "image": "dairy",
     "unit": "kg",
     "carbonPerUnit": 1.0,
     "_builtin": true,
@@ -18,7 +18,7 @@ export default [
   {
     "id": 3,
     "name": "Fats & Oils",
-    "image": "avocado",
+    "image": "oilFat",
     "unit": "kg",
     "carbonPerUnit": 1.0,
     "_builtin": true,
@@ -34,7 +34,7 @@ export default [
   {
     "id": 5,
     "name": "Fish",
-    "image": "avocado",
+    "image": "fish",
     "unit": "kg",
     "carbonPerUnit": 1.0,
     "_builtin": true,
@@ -50,7 +50,7 @@ export default [
   {
     "id": 7,
     "name": "Sweeteners",
-    "image": "avocado",
+    "image": "sweeteners",
     "unit": "kg",
     "carbonPerUnit": 1.0,
     "_builtin": true,
@@ -58,7 +58,7 @@ export default [
   {
     "id": 8,
     "name": "Spices",
-    "image": "avocado",
+    "image": "spice",
     "unit": "kg",
     "carbonPerUnit": 1.0,
     "_builtin": true,
@@ -66,7 +66,7 @@ export default [
   {
     "id": 9,
     "name": "Ready-to-eat",
-    "image": "avocado",
+    "image": "readyToEat",
     "unit": "kg",
     "carbonPerUnit": 1.0,
     "_builtin": true,
@@ -82,7 +82,7 @@ export default [
   {
     "id": 11,
     "name": "Bakery wares",
-    "image": "avocado",
+    "image": "bakeryWares",
     "unit": "kg",
     "carbonPerUnit": 1.0,
     "_builtin": true,
@@ -90,7 +90,7 @@ export default [
   {
     "id": 12,
     "name": "Confectionery",
-    "image": "avocado",
+    "image": "confectionery",
     "unit": "kg",
     "carbonPerUnit": 1.0,
     "_builtin": true,
