@@ -49,6 +49,7 @@ class Menu extends React.Component {
     return (
       <Screen
         containerStyle={ styles.container }
+        contentContainerStyle={ styles.contentContainer }
         floatingChildren={
           <React.Fragment>
             <View style={ styles.closeButtonContainer }>
@@ -97,6 +98,9 @@ const styles = StyleSheet.create({
     backgroundColor: R.colors.darkScreenBackground,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  contentContainer: {
+    paddingBottom: 0,
   },
   closeButtonContainer: {
     position: 'absolute',

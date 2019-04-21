@@ -51,7 +51,7 @@ export default {
     marginTop: Constants.statusBarHeight + 80,
   },
   screenContentContainer: {
-    paddingBottom: 40,
+    paddingBottom: 100,
   },
   screenSection: {
     fontFamily: fonts.title,
