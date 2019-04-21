@@ -22,11 +22,13 @@ const roundAmount = (value) => round(value, AMOUNT_MIN, AMOUNT_STEP)
 class AddToBasket2 extends React.Component {
   constructor(props) {
     super(props)
-    this.store = this.props.store.basketStore
+    this.store = props.store.basketStore
     this.state = {
       amount: roundAmount(AMOUNT_MIN),
       product: props.navigation.getParam('product', ''),
     }
+    let categoryId = props.navigation.getParam('categoryId')
+    this.category = props.store.categoryStore.items.get(categoryId)
     this.touchLog = R.touchLog.bind(this)
   }
 
@@ -37,6 +39,7 @@ class AddToBasket2 extends React.Component {
     const { product, amount } = this.state
     const item = {
       productName: product.trim(),
+      category: this.category.id,
       amount,
       amountUnit: 'kg',
     }
@@ -51,17 +54,16 @@ class AddToBasket2 extends React.Component {
   }
 
   render() {
-    const { navigation } = this.props
     const { amount, product } = this.state
-    const category = navigation.getParam('category', '')
 
     return (
       <BasketScreen>
         <Text style={ R.palette.bold }>
-          DAIRY PRODUCTS
+          { this.category.name.toUpperCase() }
         </Text>
         <ProductAutocomplete
           style={ R.palette.mt2 }
+          categoryId={ this.category.id }
           query={ product }
           onChangeQuery={ (query) => this.setState({ product: query }) }
           />

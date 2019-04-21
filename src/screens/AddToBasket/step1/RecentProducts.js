@@ -63,7 +63,7 @@ class RecentProducts extends React.Component {
                 this.touchLog('AddToBasket', 'RecentProduct', item.productName)
                 navigation.navigate('AddToBasket2', {
                   product: item.productName,
-                  category: item.category,
+                  categoryId: item.category,
                 })
               }}>
               { item.productName }

@@ -41,7 +41,7 @@ class AddToBasket1 extends React.Component {
     // Reverse to show most recently added products first
     const recentProducts = this.purchaseStore.recentProducts.slice().reverse()
     const showRecentProducts = !!recentProducts.length
-    const categories = this.categoryStore.items.slice()
+    const categories = Array.from(this.categoryStore.items.values())
 
     return (
       <React.Fragment>
@@ -71,7 +71,7 @@ class AddToBasket1 extends React.Component {
                 onPress={() => {
                   this.touchLog('AddToBasket', 'Category', item.name)
                   navigation.navigate('AddToBasket2', {
-                    category: item.id,
+                    categoryId: item.id,
                   })
                 }}>
                 { item.name }

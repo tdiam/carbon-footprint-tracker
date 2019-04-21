@@ -12,7 +12,7 @@ class CategoryStore {
     this.rootStore = root
   }
 
-  @observable items = []
+  @observable items = new Map()
   @observable isLoading = true
   @observable _autoincrement = 0
   @observable _hasSyncedWithStorage = false
@@ -22,11 +22,11 @@ class CategoryStore {
     const hasSeeded = await AsyncStorage.getItem('@Category:HasSeeded')
     if (hasSeeded === 'true') return
 
-    this.items = categories
+    this.setFromArray(categories)
     console.log('Replacing categories with:')
     console.table(categories)
     // Set autoincrement to one more than the max id (or 0 if no items)
-    const autoincrement = Math.max(0, ...this.items.map(item => item.id)) + 1
+    const autoincrement = Math.max(0, ...Array.from(this.items.keys())) + 1
 
     try {
       const success = await this.save()
@@ -72,9 +72,8 @@ class CategoryStore {
       items = []
     }
 
-    this.items = items
+    this.setFromArray(items)
     this._hasSyncedWithStorage = true
-    return items
   }
 
   /**
@@ -100,7 +99,7 @@ class CategoryStore {
   async addItem(item) {
     item.id = this._autoincrement
     item._builtin = false
-    this.items.push(item)
+    this.items.set(item.id, item)
     const success = await this.save()
     if (success) {
       await this._updateAutoincrement()
@@ -109,9 +108,15 @@ class CategoryStore {
   }
 
   @action
+  setFromArray(items) {
+    items.forEach(item => this.items.set(item.id, item))
+  }
+
+  @action
   async save() {
     try {
-      const json = JSON.stringify(this.items.map(CategoryItemSerializer))
+      const arr = Array.from(this.items.values())
+      const json = JSON.stringify(arr.map(CategoryItemSerializer))
       await AsyncStorage.setItem('@Category:Items', json)
       return true
     } catch(err) {

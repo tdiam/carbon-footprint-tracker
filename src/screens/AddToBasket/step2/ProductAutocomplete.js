@@ -28,13 +28,17 @@ class ProductAutocomplete extends React.Component {
   }
 
   getAutocompleteList() {
-    let query = this.props.query || ''
+    let query = this.props.query || '',
+        categoryId = this.props.categoryId
     // Hide autocomplete when query has <= 1 characters length
     if (query.length <= 1) return []
 
     query = query.toLowerCase()
-    return this.store.recentProducts.filter(({ productName }) => {
-      productName = productName.toLowerCase()
+    return this.store.recentProducts.filter(product => {
+      // Only autocomplete from the same category
+      if (categoryId && categoryId !== product.category) return false
+
+      productName = product.productName.toLowerCase()
       return productName.startsWith(query) && productName != query
     })
   }
