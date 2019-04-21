@@ -24,7 +24,7 @@ const AddToBasketStack = createStackNavigator({
 })
 
 AddToBasketStack.navigationOptions = {
-  headerLeft: null,
+  //headerLeft: null,
   title: 'Add to Basket',
 }
 
