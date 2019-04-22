@@ -33,6 +33,14 @@ class SettingsStore {
     this._hasSyncedWithStorage = true
   }
 
+  get(key, defaultValue) {
+    if (this.settings.hasOwnProperty(key)) {
+      return this.settings[key]
+    } else {
+      return defaultValue
+    }
+  }
+
   @action
   async set(key, val) {
     this.settings[key] = val

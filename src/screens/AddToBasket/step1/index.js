@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, FlatList, Text } from 'react-native'
 import { inject, observer } from 'mobx-react'
 
-import TextButton from 'components/TextButton'
 import R from 'res/R'
 import BasketScreen from '../BasketScreen'
 import RecentProducts from './RecentProducts'
@@ -11,8 +10,6 @@ import CategoryItemImage from './CategoryItemImage'
 import { NavigationEvents } from 'react-navigation';
 
 
-const CategoryItem = CategoryItemImage
-
 @inject('store')
 @observer
 class AddToBasket1 extends React.Component {
@@ -20,6 +17,7 @@ class AddToBasket1 extends React.Component {
     super(props)
     this.purchaseStore = props.store.purchaseStore
     this.categoryStore = props.store.categoryStore
+    this.settingsStore = props.store.settingsStore
     this.touchLog = R.touchLog.bind(this)
     this.screen = React.createRef()
   }
@@ -42,6 +40,8 @@ class AddToBasket1 extends React.Component {
     const recentProducts = this.purchaseStore.recentProducts.slice().reverse()
     const showRecentProducts = !!recentProducts.length
     const categories = Array.from(this.categoryStore.items.values())
+    const showCategoriesAs = this.settingsStore.get('showCategoriesAs', 'text')
+    const CategoryItem = showCategoriesAs === 'text' ? CategoryItemText : CategoryItemImage
 
     return (
       <React.Fragment>
@@ -69,7 +69,7 @@ class AddToBasket1 extends React.Component {
                   index % 3 == 0 ? styles.rowItemMargined : {},
                 ]}
                 onPress={() => {
-                  this.touchLog('AddToBasket', 'Category', item.name)
+                  this.touchLog('AddToBasket', 'Category.' + showCategoriesAs, item.name)
                   navigation.navigate('AddToBasket2', {
                     categoryId: item.id,
                   })

@@ -28,8 +28,15 @@ class Settings extends React.Component {
 
   clearPurchases = () => this.store.purchaseStore.removeAll()
   reseedCategories = () => this.store.categoryStore.forceReseed()
+  toggleShowCategoriesAs = () => {
+    const current = this.store.settingsStore.get('showCategoriesAs', 'text')
+    this.store.settingsStore.set(
+      'showCategoriesAs',
+      current === 'image' ? 'text' : 'image'
+    )
+  }
   toggleLogTouchEvents = () => {
-    const current = this.store.settingsStore.settings.logTouchEvents
+    const current = this.store.settingsStore.get('logTouchEvents', false)
     this.store.settingsStore.set('logTouchEvents', !current)
   }
   setExperimentChannel = (evt) => {
@@ -45,7 +52,8 @@ class Settings extends React.Component {
   }
 
   render() {
-    const logTouchEvents = !!this.store.settingsStore.settings.logTouchEvents
+    const logTouchEvents = this.store.settingsStore.get('logTouchEvents', false)
+    const showCategoriesAs = this.store.settingsStore.get('showCategoriesAs', 'text')
     const experimentChannel = this.store.experimentStore.channel
 
     return (
@@ -57,6 +65,12 @@ class Settings extends React.Component {
         <SettingsRow onPress={ this.reseedCategories }>
           Reseed categories
         </SettingsRow>
+        <SettingsRow
+          onPress={ this.toggleShowCategoriesAs }
+          left='Show categories as'
+          right={
+            showCategoriesAs === 'image' ? 'Image' : 'Text'
+          } />
         <SettingsRow
           onPress={ () => this.channelInput.current.focus() }
           left='Experiment channel'
