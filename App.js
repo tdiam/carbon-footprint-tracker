@@ -1,5 +1,5 @@
 import React from 'react'
-import { createStackNavigator, createAppContainer } from 'react-navigation'
+import { createStackNavigator, createAppContainer, HeaderBackButton } from 'react-navigation'
 import { Provider } from 'mobx-react'
 import { Font, AppLoading } from 'expo'
 
@@ -23,10 +23,10 @@ const AddToBasketStack = createStackNavigator({
   headerMode: 'none',
 })
 
-AddToBasketStack.navigationOptions = {
-  //headerLeft: null,
+AddToBasketStack.navigationOptions = ({ navigation }) => ({
   title: 'Add to Basket',
-}
+  headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} />
+})
 
 
 const MainStack = createStackNavigator({
