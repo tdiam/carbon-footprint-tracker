@@ -5,13 +5,13 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import R from 'res/R'
 
 
-const ICON_SIZE = 40
-const BUTTON_SIZE = 72
-const MESSAGE_FONT_SIZE = 12
-const MESSAGE_SIZE = 20
+export const ICON_SIZE = 40
+export const BUTTON_SIZE = 72
+export const MESSAGE_FONT_SIZE = 12
+export const MESSAGE_SIZE = 20
 
 // radius * (1 - cos(45deg))
-const messageOffset = (BUTTON_SIZE / 2) * (1 - Math.sin(Math.PI / 4))
+export const MESSAGE_OFFSET = (BUTTON_SIZE / 2) * (1 - Math.sin(Math.PI / 4))
 
 class BasketButton extends React.Component {
   constructor(props) {
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
   message: {
     backgroundColor: R.colors.redHighlight,
     position: 'absolute',
-    top: messageOffset,
-    right: messageOffset,
+    top: MESSAGE_OFFSET,
+    right: MESSAGE_OFFSET,
     width: MESSAGE_SIZE,
     height: MESSAGE_SIZE,
     borderRadius: MESSAGE_SIZE / 2,
