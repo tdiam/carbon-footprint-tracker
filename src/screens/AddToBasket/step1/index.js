@@ -25,6 +25,7 @@ class AddToBasket1 extends React.Component {
   componentDidMount() {
     this.purchaseStore.sync()
     this.categoryStore.sync()
+    this.settingsStore.sync()
   }
 
   handleScreenFocus = () => {

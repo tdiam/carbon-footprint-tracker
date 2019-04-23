@@ -18,7 +18,7 @@ export default [
   {
     "id": 3,
     "name": "Fats & Oils",
-    "image": "oilFat",
+    "image": "oil",
     "unit": "kg",
     "carbonPerUnit": 1.0,
     "_builtin": true,
@@ -26,7 +26,7 @@ export default [
   {
     "id": 4,
     "name": "Meat",
-    "image": "avocado",
+    "image": "meat",
     "unit": "kg",
     "carbonPerUnit": 1.0,
     "_builtin": true,
@@ -42,7 +42,7 @@ export default [
   {
     "id": 6,
     "name": "Eggs",
-    "image": "avocado",
+    "image": "eggs",
     "unit": "kg",
     "carbonPerUnit": 1.0,
     "_builtin": true,
@@ -74,7 +74,7 @@ export default [
   {
     "id": 10,
     "name": "Beverages",
-    "image": "avocado",
+    "image": "beverages",
     "unit": "kg",
     "carbonPerUnit": 1.0,
     "_builtin": true,

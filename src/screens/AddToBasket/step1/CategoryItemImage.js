@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 90,
+    width: 90,
   },
   text: {
     fontSize: 10,

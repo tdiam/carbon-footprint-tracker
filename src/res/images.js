@@ -1,11 +1,14 @@
 export default {
   avocado: require('./images/avocado.png'),
-  bakeryWares: require('./images/bakery-wares.png'),
+  bakeryWares: require('./images/bakerywares.png'),
+  beverages: require('./images/beverage.png'),
   confectionery: require('./images/confectionery.png'),
   dairy: require('./images/dairy.png'),
+  eggs: require('./images/eggs.png'),
   fish: require('./images/fish.png'),
-  oilFat: require('./images/oil_fat.png'),
-  readyToEat: require('./images/ready-to-eat.png'),
+  meat: require('./images/meat.png'),
+  oil: require('./images/oil.png'),
+  readyToEat: require('./images/readytoeat.png'),
   spice: require('./images/spice.png'),
-  sweeteners: require('./images/sweeteners.png'),
+  sweeteners: require('./images/sweetener.png'),
 }
