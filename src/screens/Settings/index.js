@@ -29,14 +29,14 @@ class Settings extends React.Component {
   clearPurchases = () => this.store.purchaseStore.removeAll()
   reseedCategories = () => this.store.categoryStore.forceReseed()
   toggleShowCategoriesAs = () => {
-    const current = this.store.settingsStore.get('showCategoriesAs', 'text')
+    const current = this.store.settingsStore.settings.showCategoriesAs || 'text'
     this.store.settingsStore.set(
       'showCategoriesAs',
       current === 'image' ? 'text' : 'image'
     )
   }
   toggleLogTouchEvents = () => {
-    const current = this.store.settingsStore.get('logTouchEvents', false)
+    const current = this.store.settingsStore.settings.logTouchEvents || false
     this.store.settingsStore.set('logTouchEvents', !current)
   }
   setExperimentChannel = (evt) => {
@@ -52,8 +52,8 @@ class Settings extends React.Component {
   }
 
   render() {
-    const logTouchEvents = this.store.settingsStore.get('logTouchEvents', false)
-    const showCategoriesAs = this.store.settingsStore.get('showCategoriesAs', 'text')
+    const logTouchEvents = this.store.settingsStore.settings.logTouchEvents || false
+    const showCategoriesAs = this.store.settingsStore.settings.showCategoriesAs || 'text'
     const experimentChannel = this.store.experimentStore.channel
 
     return (
@@ -84,6 +84,8 @@ class Settings extends React.Component {
           } />
         <SettingsRow
           onPress={ this.toggleLogTouchEvents }
+          disabled={ !experimentChannel }
+          style={ !experimentChannel && R.palette.disabledButton }
           left='Log touch events'
           right={
             logTouchEvents ? 'Yes' : 'No'

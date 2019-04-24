@@ -41,7 +41,7 @@ class AddToBasket1 extends React.Component {
     const recentProducts = this.purchaseStore.recentProducts.slice().reverse()
     const showRecentProducts = !!recentProducts.length
     const categories = Array.from(this.categoryStore.items.values())
-    const showCategoriesAs = this.settingsStore.get('showCategoriesAs', 'text')
+    const showCategoriesAs = this.settingsStore.settings.showCategoriesAs || 'text'
     const CategoryItem = showCategoriesAs === 'text' ? CategoryItemText : CategoryItemImage
 
     return (

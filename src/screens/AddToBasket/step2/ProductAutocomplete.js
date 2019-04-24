@@ -43,6 +43,11 @@ class ProductAutocomplete extends React.Component {
     })
   }
 
+  onChangeQuery = (query) => {
+    this.touchLog('AddToBasket', 'Autocomplete', 'TextInput', 'query', query)
+    this.props.onChangeQuery(query)
+  }
+
   onAutocompletePress = (item) => {
     Keyboard.dismiss()
     this.props.onChangeQuery(item)
@@ -59,7 +64,9 @@ class ProductAutocomplete extends React.Component {
           <TextInput
             autoFocus
             value={ query }
-            onChangeText={ this.props.onChangeQuery }
+            onChangeText={ this.onChangeQuery }
+            onBlur={ () => this.touchLog('AddToBasket', 'Autocomplete', 'TextInput', 'blur') }
+            onFocus={ () => this.touchLog('AddToBasket', 'Autocomplete', 'TextInput', 'focus') }
             placeholder='Select a product...' />
         </ScrollView>
         { autocompletes.length > 0 && (

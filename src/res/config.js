@@ -1,3 +1,3 @@
 export default {
-  exportDestination: 'http://10.16.33.1:9091',
+  exportDestination: 'http://83.212.109.88:9091',
 }
